@@ -1,0 +1,2 @@
+1,FlowerShop,true,true
+2,MeatShop,true,false
