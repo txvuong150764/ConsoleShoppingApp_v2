@@ -36,4 +36,12 @@ public class MenuService {
         System.out.print("Please enter your option: ");
         return sc.nextInt();
     }
+
+    public int getCheckoutMenu() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1. Check Out");
+        System.out.println("2. Return to Main Menu");
+        System.out.print("Please enter your option: ");
+        return sc.nextInt();
+    }
 }

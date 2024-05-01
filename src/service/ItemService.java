@@ -1,9 +1,11 @@
 package service;
 
+import dto.Cart;
 import entity.Item;
 import entity.Shop;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -29,5 +31,35 @@ public class ItemService extends Service<Item> {
             throw new RuntimeException(e);
         }
         return null;
+    }
+    public Item getItemInCartByName(String name, Cart cart) {
+        for(Item i : cart.getItems()) {
+            if(i.getName().equalsIgnoreCase(name)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public void write(Item item, Shop shop) {
+        try {
+            FileWriter writer = new FileWriter("resource/Shop_" + shop.getId() + "/items.txt", true);
+            String itemInfo = item.getName() + "," + item.getPrice() + "," + item.getAmount() + "\n";
+            writer.write(itemInfo);
+            System.out.println("Updated " + item.getName());
+            writer.close();;
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+    }
+    public void clearItemFile(Shop shop){
+        try {
+            FileWriter writer = new FileWriter("resource/Shop_" + shop.getId() + "/items.txt");
+            writer.write("");
+            writer.close();
+        }
+        catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
     }
 }

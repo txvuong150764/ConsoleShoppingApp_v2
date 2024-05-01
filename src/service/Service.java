@@ -16,5 +16,4 @@ public abstract class Service<T>{
     public ArrayList<T> getAllByShop(Shop shop) {
         return null;
     }
-
 }

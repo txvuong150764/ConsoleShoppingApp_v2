@@ -3,7 +3,6 @@ package service;
 import dto.Cart;
 import entity.Customer;
 import entity.Item;
-import entity.Rank;
 import entity.Shop;
 
 import java.io.File;
@@ -15,7 +14,6 @@ public class CustomerService extends Service<Customer> {
     public ShopService shopService = new ShopService();
     public CartService cartService = new CartService();
     public ItemService itemService = new ItemService();
-    public RankService rankService = new RankService();
     @Override
     public ArrayList<Customer> getAll() {
         ArrayList<Customer> customers = new ArrayList<>();
@@ -80,25 +78,7 @@ public class CustomerService extends Service<Customer> {
         }
         return loginUser;
     }
-    public Rank classifyRank(Customer customer) {
-        Shop shop = shopService.getById(customer.getShopId());
-        ArrayList<Rank> rankList = rankService.getAllByShop(shop);
 
-        Rank r = null;
-
-        for(Rank rank : rankList) {
-            if(customer.getLoyaltyPoint() >= rank.getRequiredPoint()) {
-                r = rank;
-            }
-        }
-
-        return r;
-    }
-    public void viewRank(Customer customer) {
-        Rank r = classifyRank(customer);
-        System.out.println("\nYour rank is " + r.getName() + " with " + customer.getLoyaltyPoint() + " loyalty points.");
-        System.out.println("Benefit for " + r.getName() + " customer are listed below: ");
-    }
     public int getCustomerInputAmount() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter amount you want to buy: ");
@@ -107,6 +87,8 @@ public class CustomerService extends Service<Customer> {
     public void buyItem(Customer customer) {
         Shop shop = shopService.getById(customer.getShopId());
         ArrayList<Item> items = itemService.getAllByShop(shop);
+
+        itemService.clearItemFile(shop);
 
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter item you want to add: ");
@@ -120,14 +102,10 @@ public class CustomerService extends Service<Customer> {
                 }
                 item.setAmount(item.getAmount() - amount);
                 cartService.updateCart(customer.getCart(), item, amount);
-                System.out.println("Added " + amount + " " + item.getName() + "to cart");
-                return;
+                System.out.println("Added " + amount + " " + item.getName() + " to cart");
             }
+            itemService.write(item, shop);
         }
         System.out.println("Invalid item. Please re-enter.");
-    }
-
-    public void checkout(Customer customer) {
-
     }
 }

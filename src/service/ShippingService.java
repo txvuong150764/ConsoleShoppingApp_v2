@@ -1,7 +1,6 @@
 package service;
 
 import entity.Shipping;
-import entity.Shipping;
 import entity.Shop;
 
 import java.io.File;
@@ -29,6 +28,18 @@ public class ShippingService extends Service<Shipping> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return null;
+    }
+
+    public Shipping getById(int id, Shop shop) {
+        ArrayList<Shipping> shippings = this.getAllByShop(shop);
+
+        for(Shipping shipping : shippings) {
+            if (shipping.getId() == id) {
+                return shipping;
+            }
+        }
+
         return null;
     }
 }

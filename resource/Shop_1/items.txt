@@ -1,6 +1,6 @@
-Rose,10,100
-Tulip,11,200
-Blossom,7,99
-Aconite,8,88
-Orchids,20,98
-Daisies,17,101
+Rose,10.0,94
+Tulip,11.0,200
+Blossom,7.0,99
+Aconite,8.0,88
+Orchids,20.0,98
+Daisies,17.0,101
