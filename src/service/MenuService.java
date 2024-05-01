@@ -20,8 +20,19 @@ public class MenuService {
     }
     public int getBuyMenuCustomerInput() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("1. Buy");
+        System.out.println("1. Add more item to cart");
         System.out.println("2. Return to Main Menu");
+        System.out.print("Please enter your option: ");
+        return sc.nextInt();
+    }
+
+    public int getShippingInput(Menu menu) {
+        Scanner sc = new Scanner(System.in);
+        int i = 1;
+        for(String shipping : menu.getCheckoutMenuOptions()) {
+            System.out.println(i + ". " + shipping);
+            i++;
+        }
         System.out.print("Please enter your option: ");
         return sc.nextInt();
     }

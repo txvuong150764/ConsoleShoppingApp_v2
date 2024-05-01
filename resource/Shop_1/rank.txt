@@ -1,0 +1,4 @@
+Common,0
+Silver,100
+Gold,200
+Diamond,300

@@ -1,0 +1,3 @@
+Normal,0
+Premium,150
+Super Premium,400
