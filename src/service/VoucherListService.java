@@ -6,6 +6,7 @@ import dto.VoucherList;
 import entity.*;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -89,5 +90,46 @@ public class VoucherListService {
         }
 
         FormatUtils.printShopVoucherEnd();
+    }
+    public void writeItemAndShippingVoucher(ArrayList<Voucher> vouchers, Shop shop, Rank rank) {
+        try {
+            FileWriter writer = new FileWriter("resource/Shop_" + shop.getId() + "/" + rank.getName().toLowerCase() +"_vouchers.txt", true);
+            for(Voucher voucher : vouchers) {
+                String voucherInfo = voucher.getType() + "," + voucher.getDiscountRate() + "," + voucher.getMinimumSpend() + "," + voucher.getAmount() + "\n";
+                writer.write(voucherInfo);
+            }
+            writer.close();;
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+    }
+    public void writeShopVoucher(ArrayList<Voucher> vouchers, Shop shop) {
+        try {
+            FileWriter writer = new FileWriter("resource/Shop_" + shop.getId() + "/shop_vouchers.txt", true);
+            for(Voucher voucher : vouchers) {
+                String voucherInfo = voucher.getType() + "," + voucher.getDiscountRate() + "," + voucher.getMinimumSpend() + "," + voucher.getAmount() + "\n";
+                writer.write(voucherInfo);
+            }
+            writer.close();;
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+    }
+    public void write(VoucherList voucherList, Shop shop, Rank rank) {
+        clearVoucherFile("resource/Shop_" + shop.getId() + "/shop_vouchers.txt");
+        clearVoucherFile("resource/Shop_" + shop.getId() + "/" + rank.getName().toLowerCase() +"_vouchers.txt");
+        writeItemAndShippingVoucher(voucherList.getItemVoucher(), shop, rank);
+        writeItemAndShippingVoucher(voucherList.getShippingVoucher(), shop, rank);
+        writeShopVoucher(voucherList.getShopVoucher(), shop);
+    }
+    public void clearVoucherFile(String fileName) {
+        try {
+            FileWriter writer = new FileWriter(fileName);
+            writer.write("");
+            writer.close();
+        }
+        catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
     }
 }

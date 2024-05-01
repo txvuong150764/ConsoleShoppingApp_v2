@@ -46,7 +46,6 @@ public class ItemService extends Service<Item> {
             FileWriter writer = new FileWriter("resource/Shop_" + shop.getId() + "/items.txt", true);
             String itemInfo = item.getName() + "," + item.getPrice() + "," + item.getAmount() + "\n";
             writer.write(itemInfo);
-            System.out.println("Updated " + item.getName());
             writer.close();;
         } catch (IOException e) {
             e.getStackTrace();

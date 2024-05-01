@@ -1,6 +1,6 @@
-beef,25,20
-pork,13,30
-chicken,8,34
-lamb,20,12
-fish,17,28
-goat,30,29
+beef,25.0,5
+pork,13.0,30
+chicken,8.0,34
+lamb,20.0,12
+fish,17.0,28
+goat,30.0,29

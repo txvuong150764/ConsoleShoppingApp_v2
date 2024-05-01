@@ -14,6 +14,9 @@ import entity.Voucher;
 
 public class CartService {
     public VoucherService voucherService = new VoucherService();
+    public VoucherListService voucherListService = new VoucherListService();
+    public ShopService shopService = new ShopService();
+    public RankService rankService = new RankService();
     public ItemService itemService = new ItemService();
     public ArrayList<Item> readShoppingCart(String itemList) {
         ArrayList<Item> shoppingCart = new ArrayList<>();
@@ -99,6 +102,8 @@ public class CartService {
         voucherService.useVoucher(voucherList.getItemVoucher(), bestItemVoucher);
         voucherService.useVoucher(voucherList.getShippingVoucher(), bestShippingVoucher);
         voucherService.useShopVoucher(voucherList.getShopVoucher(), bestShopVouchers);
+
+        voucherListService.write(voucherList, shopService.getById(customer.getShopId()), rankService.classifyRank(customer));
 
         customer.setLoyaltyPoint(customer.getLoyaltyPoint() + loyalPointsGained);
 

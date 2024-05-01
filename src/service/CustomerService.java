@@ -106,6 +106,5 @@ public class CustomerService extends Service<Customer> {
             }
             itemService.write(item, shop);
         }
-        System.out.println("Invalid item. Please re-enter.");
     }
 }
